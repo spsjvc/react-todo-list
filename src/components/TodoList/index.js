@@ -1,10 +1,6 @@
 import React from 'react'
 
 export function Todo(props) {
-  function handleTitleClick() {
-    props.onChangeTodoPriority(props.todo)
-  }
-
   function getColorForPriority(priority) {
     switch (priority) {
       case 1:
@@ -16,6 +12,18 @@ export function Todo(props) {
       default:
         return 'black'
     }
+  }
+
+  function handleTitleClick() {
+    props.onChangeTodoPriority(props.todo)
+  }
+
+  function handleCompleteClick() {
+    props.onMarkTodoAsCompleted(props.todo)
+  }
+
+  function handleDeleteClick() {
+    props.onDeleteTodo(props.todo)
   }
 
   return (
@@ -34,6 +42,12 @@ export function Todo(props) {
       <div>
         <b>Completed?</b> {props.todo.isCompleted ? 'Yes' : 'No'}
       </div>
+      <div>
+        {!props.todo.isCompleted ? (
+          <button onClick={handleCompleteClick}>✔</button>
+        ) : null}
+        <button onClick={handleDeleteClick}>✘</button>
+      </div>
     </div>
   )
 }
@@ -45,7 +59,9 @@ export default function TodoList(props) {
         <Todo
           key={todo.id}
           todo={todo}
+          onDeleteTodo={props.onDeleteTodo}
           onChangeTodoPriority={props.onChangeTodoPriority}
+          onMarkTodoAsCompleted={props.onMarkTodoAsCompleted}
         />
       ))}
     </div>

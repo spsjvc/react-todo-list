@@ -10,15 +10,25 @@ export default function TodosApp() {
     actions.addTodo(todo)
   }
 
+  function handleDeleteTodo(todo) {
+    actions.deleteTodo(todo)
+  }
+
   function handleChangeTodoPriority(todo) {
     actions.changeTodoPriority(todo)
+  }
+
+  function handleMarkTodoAsCompleted(todo) {
+    actions.markTodoAsCompleted(todo)
   }
 
   return (
     <>
       <TodoList
         todos={state.todos}
+        onDeleteTodo={handleDeleteTodo}
         onChangeTodoPriority={handleChangeTodoPriority}
+        onMarkTodoAsCompleted={handleMarkTodoAsCompleted}
       />
       <TodoForm onAddTodo={handleAddTodo} />
     </>

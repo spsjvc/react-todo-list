@@ -7,8 +7,19 @@ export default function TodosProvider(props) {
   const [autoIncrementingId, setAutoIncrementingId] = useState(1)
 
   function addTodo(todo) {
-    setTodos([...todos, { ...todo, id: autoIncrementingId }])
+    setTodos([...todos, { id: autoIncrementingId, ...todo }])
     setAutoIncrementingId(autoIncrementingId + 1)
+  }
+
+  function changeTodoPriority(todo) {
+    const todoIndex = todos.findIndex(t => t.id === todo.id)
+    const newPriority = todo.priority !== 3 ? todo.priority + 1 : 1
+
+    setTodos([
+      ...todos.slice(0, todoIndex),
+      { ...todo, priority: newPriority },
+      ...todos.slice(todoIndex + 1, todos.length)
+    ])
   }
 
   return (
@@ -18,7 +29,8 @@ export default function TodosProvider(props) {
           todos
         },
         actions: {
-          addTodo
+          addTodo,
+          changeTodoPriority
         }
       }}
     >

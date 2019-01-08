@@ -6,9 +6,10 @@ export default function TodoForm(props) {
   const titleInput = useInput()
 
   function handleClick() {
-    props.onTodoAdd({
+    props.onAddTodo({
       title: titleInput.value,
-      isCompleted: false
+      isCompleted: false,
+      priority: 1
     })
 
     titleInput.resetValue()

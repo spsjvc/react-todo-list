@@ -6,14 +6,21 @@ import { TodoList, TodoForm } from '../../components'
 export default function TodosApp() {
   const { state, actions } = useContext(TodosContext)
 
-  function handleTodoAdd(todo) {
+  function handleAddTodo(todo) {
     actions.addTodo(todo)
+  }
+
+  function handleChangeTodoPriority(todo) {
+    actions.changeTodoPriority(todo)
   }
 
   return (
     <>
-      <TodoList todos={state.todos} />
-      <TodoForm onTodoAdd={handleTodoAdd} />
+      <TodoList
+        todos={state.todos}
+        onChangeTodoPriority={handleChangeTodoPriority}
+      />
+      <TodoForm onAddTodo={handleAddTodo} />
     </>
   )
 }

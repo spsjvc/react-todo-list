@@ -1,14 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import './index.css'
-
-import App from './App'
-import TodosProvider from './TodosProvider'
+import { TodosApp } from './containers'
+import { TodosProvider } from './providers'
 
 ReactDOM.render(
   <TodosProvider>
-    <App />
+    <TodosApp />
   </TodosProvider>,
   document.getElementById('root')
 )

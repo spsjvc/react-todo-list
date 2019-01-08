@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { useInput } from './customHooks'
+
+import { TodosContext } from './TodosProvider'
 
 function Todo(props) {
   return (
-    <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem'}}>
+    <div style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
       <div>
         <b>Title:</b> {props.title}
       </div>
@@ -18,11 +20,7 @@ function TodoList(props) {
   return (
     <div style={{ padding: '1rem' }}>
       {props.todos.map((todo, index) => (
-        <Todo
-          key={index}
-          title={todo.title}
-          isCompleted={todo.isCompleted}
-        />
+        <Todo key={todo.id} title={todo.title} isCompleted={todo.isCompleted} />
       ))}
     </div>
   )
@@ -42,29 +40,22 @@ function TodoForm(props) {
 
   return (
     <div style={{ padding: '1rem' }}>
-      <input
-        value={titleInput.value}
-        onChange={titleInput.onChange}
-      />
-      <button
-        onClick={handleClick}
-      >
-        Submit
-      </button>
+      <input value={titleInput.value} onChange={titleInput.onChange} />
+      <button onClick={handleClick}>Submit</button>
     </div>
   )
 }
 
 export default function App() {
-  const [todos, setTodos] = useState([])
+  const { state, actions } = useContext(TodosContext)
 
   function handleTodoAdd(todo) {
-    setTodos([...todos, todo])
+    actions.addTodo(todo)
   }
 
   return (
     <>
-      <TodoList todos={todos} />
+      <TodoList todos={state.todos} />
       <TodoForm onTodoAdd={handleTodoAdd} />
     </>
   )
